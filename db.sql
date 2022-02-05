@@ -6,11 +6,11 @@ CREATE TABLE products (
 );
 
 CREATE TABLE restaurants (
-    id INT,
-    name VARCHAR(50),
-    location VARCHAR(50),
-    price_range INT
-)
+    id BIGSERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    location VARCHAR(50) NOT NULL,
+    price_range INT NOT NULL check( price_range >= 1  and price_range <= 5)
+);
 
 
 INSERT INTO restaurants (id, name, location, price_range) values (123, 'mcDonalds', 'Sarajevo', 3);
