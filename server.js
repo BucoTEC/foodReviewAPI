@@ -22,11 +22,23 @@ app.get("/api/restaurants/:id", (req, res) => {
 });
 
 //create restaurante
-app.get("/api/restaurants", (req, res) => {
+app.post("/api/restaurants", (req, res) => {
   const data = req.body;
   res.status(200).json({ msg: "created new restaurantes", data });
 });
 
+//update restaurant
+app.put("/api/restaurants/:id", (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+  res.json({ msg: "update restaurante", id, data });
+});
+//delete restaurante
+app.delete("/api/restaurants/:id", (req, res) => {
+  const { id } = req.params;
+
+  res.json({ msg: "delte restaurant", id });
+});
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Serverr is operational on port: ${port}`);
