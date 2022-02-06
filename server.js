@@ -39,6 +39,12 @@ app.delete("/api/restaurants/:id", (req, res) => {
 
   res.json({ msg: "delte restaurant", id });
 });
+
+//not found
+app.use("*", (req, res) => {
+  res.status(404).json("404 route doese not exist");
+});
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Serverr is operational on port: ${port}`);
