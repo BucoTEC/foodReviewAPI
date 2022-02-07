@@ -35,9 +35,30 @@ app.get("/api/restaurants/:id", async (req, res) => {
 });
 
 //create restaurante
-app.post("/api/restaurants", (req, res) => {
-  const data = req.body;
-  res.status(200).json({ msg: "created new restaurantes", data });
+app.post("/api/restaurants", async (req, res, next) => {
+  const { name } = req.body;
+  const { location } = req.body;
+  const { price_range } = req.body;
+
+  try {
+    const { rows } = await db.query(
+      "SELECT * FROM restaurants WHERE name = $1",
+      [name]
+    );
+    if (rows.length !== 0) {
+      throw Error("review alredy exists");
+    }
+
+    await db.query(
+      "INSERT INTO restaurants (name, location, price_range) values ($1,$2,$3)",
+      [name, location, price_range]
+    );
+
+    res.json("Added a food review successfuly");
+  } catch (err) {
+    console.log(err);
+    res.json(err.message);
+  }
 });
 
 //update restaurant
@@ -47,10 +68,15 @@ app.put("/api/restaurants/:id", (req, res) => {
   res.json({ msg: "update restaurante", id, data });
 });
 //delete restaurante
-app.delete("/api/restaurants/:id", (req, res) => {
+app.delete("/api/restaurants/:id", async (req, res) => {
   const { id } = req.params;
-
-  res.json({ msg: "delte restaurant", id });
+  try {
+    await db.query("DELETE FROM restaurants WHERE id = $1", [id]);
+    res.json("Deleted review");
+  } catch (err) {
+    console.log(err);
+    res.json(err.message);
+  }
 });
 
 //not found
