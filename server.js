@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import db from "./db/index.js";
 // config
 const app = express();
 dotenv.config();
@@ -10,8 +11,14 @@ app.use(cors());
 // ROUTES
 
 //get all restaurantes
-app.get("/api/restaurants", (req, res) => {
-  res.json("all restaurantes");
+app.get("/api/restaurants", async (req, res) => {
+  try {
+    const { rows } = await db.query("SELECT * FROM restaurants");
+    res.json(rows);
+  } catch (err) {
+    console.log(err.stack);
+    res.json(err.message);
+  }
 });
 
 //get single restaurante

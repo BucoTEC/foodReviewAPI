@@ -13,4 +13,8 @@ CREATE TABLE restaurants (
 );
 
 
-INSERT INTO restaurants (id, name, location, price_range) values (123, 'mcDonalds', 'Sarajevo', 3);
+INSERT INTO restaurants ( name, location, price_range) values ( 'mcDonalds', 'Sarajevo', 3);
+INSERT INTO restaurants ( name, location, price_range) values ( 'mahir', 'Sarajevo', 2);
+INSERT INTO restaurants ( name, location, price_range) values ( 'zeljo', 'Sarajevo', 5);
+INSERT INTO restaurants ( name, location, price_range) values ( 'mcDonalds', 'Mostar', 3);
+

@@ -1,13 +1,14 @@
-import { Pool } from "pg";
+import pg from "pg";
+const Pool = pg.Pool;
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "food_review",
   password: "04012000",
-  port: 5431,
+  port: 5432,
 });
 
-database = {
+const database = {
   query: (text, params, callback) => {
     return pool.query(text, params, callback);
   },
