@@ -21,10 +21,17 @@ app.get("/api/restaurants", async (req, res) => {
 });
 
 //get single restaurante
-app.get("/api/restaurants/:id", (req, res) => {
+app.get("/api/restaurants/:id", async (req, res) => {
   const { id } = req.params;
-
-  res.json({ msg: "single restaurante", id });
+  try {
+    const { rows } = await db.query("SELECT * FROM restaurants WHERE id = $1", [
+      id,
+    ]);
+    res.json(rows);
+  } catch (err) {
+    console.log(err.stack);
+    res.json(err.message);
+  }
 });
 
 //create restaurante
