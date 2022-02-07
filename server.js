@@ -9,7 +9,6 @@ app.use(express.json());
 app.use(cors());
 
 // ROUTES
-
 //get all restaurantes
 app.get("/api/restaurants", async (req, res) => {
   try {
