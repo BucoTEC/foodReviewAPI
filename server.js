@@ -62,10 +62,22 @@ app.post("/api/restaurants", async (req, res, next) => {
 });
 
 //update restaurant
-app.put("/api/restaurants/:id", (req, res) => {
+app.put("/api/restaurants/:id", async (req, res) => {
   const { id } = req.params;
-  const data = req.body;
-  res.json({ msg: "update restaurante", id, data });
+
+  try {
+    if (!req.body.name || !req.body.location || !req.body.price_range) {
+      throw Error("Missing data");
+    }
+    const data = await db.query(
+      "UPDATE restaurants SET name = $1, location = $2, price_range = $3 WHERE id = $4 returning *",
+      [req.body.name, req.body.location, req.body.price_range, id]
+    );
+    res.json(data.rows[0]);
+  } catch (err) {
+    console.log(err);
+    res.json(err.message);
+  }
 });
 //delete restaurante
 app.delete("/api/restaurants/:id", async (req, res) => {
