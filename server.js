@@ -91,6 +91,24 @@ app.delete("/api/restaurants/:id", async (req, res) => {
   }
 });
 
+//add review
+app.post("/api/restaurants/:id/addReview", async (req, res) => {
+  try {
+    const newReview = await db.query(
+      "INSERT INTO reviews (restaurant_id, name, review, rating) values ($1, $2, $3, $4) returning *;",
+      [req.params.id, req.body.name, req.body.review, req.body.rating]
+    );
+    res.status(201).json({
+      status: "success",
+      data: {
+        review: newReview.rows[0],
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //not found
 app.use("*", (req, res) => {
   res.status(404).json("404 route doese not exist");
