@@ -4,11 +4,12 @@ const Pool = pg.Pool;
 
 dotenv.config();
 
-const final = {
-  connectionString: process.env.DATABASE_URL,
-};
+const final =  process.env.DATABASE_URL,
 
-const pool = new Pool(final);
+
+const pool = new Pool({
+connectionString: final,
+});
 
 const database = {
   query: (text, params, callback) => {
