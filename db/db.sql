@@ -1,9 +1,4 @@
-CREATE TABLE products (
-    id INT PRIMARY KEY,
-    name VARCHAR(50),
-    price INT,
-    on_sale boolean
-);
+
 
 CREATE TABLE restaurants (
     id BIGSERIAL PRIMARY KEY NOT NULL,

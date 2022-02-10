@@ -9,6 +9,11 @@ app.use(express.json());
 app.use(cors());
 
 // ROUTES
+
+//setup
+app.get("/", (req, res) => {
+  res.send("<h1>This is a Express.js rest api build with postgres</h1>");
+});
 //get all restaurantes
 app.get("/api/restaurants", async (req, res) => {
   try {
